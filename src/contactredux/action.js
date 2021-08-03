@@ -3,17 +3,20 @@ import {ADD_CONTACT,EDIT_CONTACT,DELETE_CONTACT,SHOW_CONTACT} from './actcionnam
 export function addcontact(data){
     return{
         type:ADD_CONTACT,
-        payload:{data}
+        payload:data
     }
 }
-export function editcontact(){
+export function editcontact(index,data){
     return{
-        type:EDIT_CONTACT
+        type:EDIT_CONTACT,
+        index:index,
+        data:data
     }
 }
-export function deletecontact(){
+export function deletecontact(index){
     return{
-        type:DELETE_CONTACT
+        type:DELETE_CONTACT,
+        index:index
     }
 }
 

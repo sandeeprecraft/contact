@@ -1,31 +1,17 @@
-import {ADD_CONTACT,EDIT_CONTACT,DELETE_CONTACT,SHOW_CONTACT} from './actcionnames'
+import {ADD_CONTACT,EDIT_CONTACT,DELETE_CONTACT} from './actcionnames'
 
-const initialState={
-    firstname:'',
-    lastname:'',
-    mobilenumber:''
-}
 
-const reducer=(state=initialState,action)=>{
+
+const reducer=(state=[],action)=>{
     switch(action.type){
         case ADD_CONTACT:
-            return{
-                firstname:action.payload.data.firstname,
-                lastname:action.payload.data.lastname,
-                mobilenumber:action.payload.data.mobilenumber
-            }
+            return [...state,action.payload]
         case EDIT_CONTACT:
-            return{
-                ...state
-            }
+           return( state.filter((state,index)=>index===action.index))
         case DELETE_CONTACT:
-            return{
-                ...state
-            }
-        case SHOW_CONTACT:
-            return{
-                ...state
-            }
+            return (
+                state.filter((state,index)=> index!==action.index)
+            )
         default:
             return state
     }
