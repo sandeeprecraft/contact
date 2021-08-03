@@ -5,7 +5,6 @@ import { addcontact,addtext } from '../contactredux'
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
-hellosjjd
 const useStyles = makeStyles((theme)=>({
     modal: {
         display: 'flex',
