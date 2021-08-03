@@ -1,4 +1,4 @@
-export {addcontact,editcontact,deletecontact,showcontact} from './action'
+export {addcontact,editcontact,deletecontact,showcontact,addtext} from './action'
 
 
 

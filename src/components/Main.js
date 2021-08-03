@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
-import {Fade,Modal,Backdrop,Button,Table,TextField,TableBody,TableCell,TableContainer,TableHead,TableRow,Container} from "@material-ui/core";
+import {Fade,Modal,Backdrop,Button,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Container} from "@material-ui/core";
 import {useSelector,useDispatch} from 'react-redux'
 import {editcontact,deletecontact} from '../contactredux'
 import './mainstyle.css'
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
-import {AddContact} from './AddContact';
+import AddContact from './AddContact';
 
 const useStyles = makeStyles((theme)=>({
     modal: {
@@ -30,11 +30,12 @@ const useStyles = makeStyles((theme)=>({
 
   }));
 
-function Main(props) {
+function Main() {
     const classes = useStyles();
     const dispatch = useDispatch()
     
-    const [open, setOpen] = useState(false);
+    const [Open, setOpen] = useState(false);
+
 
     const handleOpen = () => {
         setOpen(true);
@@ -44,9 +45,13 @@ function Main(props) {
         setOpen(false);
     };
 
-   
+    const handleEdit=(index)=>{
+        setOpen(true)
+        dispatch(editcontact(index))
+    }
+
       
-    const data = useSelector(state=>state)
+    const data = useSelector(state=>state.contactdata)
     
     return (
         <Container fixed style={{ padding:"0px", backgroundColor: '#cfe8fc', height: '100vh' }}>
@@ -54,7 +59,7 @@ function Main(props) {
                 aria-labelledby="Add contact"
                 aria-describedby="add contact"
                 className={classes.modal}
-                open={open}
+                open={Open}
                 onClose={handleClose}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
@@ -62,14 +67,15 @@ function Main(props) {
                 timeout: 500,
                 }}
             >
-            <Fade in={open}>
+            <Fade in={Open} style={{width:"300px",backgroundColor:"skyblue" ,opacity:"1"}}>
+                
                 <div className={classes.paper}>
-                    <AddContact handleClose={handleClose}/>
-                    
+                    <AddContact handleClose={handleClose} />
                 </div>
             </Fade>
+            
         </Modal>
-            <h1 style={{fontSize:"8vh", backgroundColor:"#34cceb", color:"#eb3474"}}>Contacts</h1>
+            <h1 style={{marginTop:"0px",fontSize:"8vh", backgroundColor:"#34cceb", color:"#eb3474"}}>Contacts</h1>
              <Button variant="outlined" color="primary" id="addbutton" onClick={handleOpen}>Add Contact</Button>
                 
 
@@ -88,14 +94,13 @@ function Main(props) {
                         <TableRow key={value.firstname}>
                             <TableCell align="center">{`${value.firstname} ${value.lastname}`}</TableCell>
                             <TableCell align="center">{value.mobilenumber}</TableCell>
-                            <TableCell align="center"><EditIcon onClick={handleOpen}/><DeleteIcon  onClick={()=>dispatch(deletecontact(index))}/></TableCell>
+                            <TableCell align="center"><EditIcon onClick={()=>handleEdit(index)}/><DeleteIcon  onClick={()=>dispatch(deletecontact(index))}/></TableCell>
                         </TableRow>
                     )
                 })}
         </TableBody>
         </Table>
         </TableContainer>
-       
     </Container>
     )
 }

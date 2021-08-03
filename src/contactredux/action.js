@@ -1,4 +1,4 @@
-import {ADD_CONTACT,EDIT_CONTACT,DELETE_CONTACT,SHOW_CONTACT} from './actcionnames'
+import {ADD_CONTACT,EDIT_CONTACT,DELETE_CONTACT,SHOW_CONTACT,ADD_TEXT} from './actcionnames'
 
 export function addcontact(data){
     return{
@@ -6,23 +6,29 @@ export function addcontact(data){
         payload:data
     }
 }
-export function editcontact(index,data){
+export function editcontact(index){
     return{
         type:EDIT_CONTACT,
-        index:index,
-        data:data
+        payload:index
     }
 }
 export function deletecontact(index){
     return{
         type:DELETE_CONTACT,
-        index:index
+        index:index,
+        // payload:data
     }
 }
 
 export function showcontact(){
     return{
         type:SHOW_CONTACT
+    }
+}
+export function addtext(data){
+    return{
+        type:ADD_TEXT,
+        payload:data
     }
 }
 
