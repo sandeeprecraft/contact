@@ -4,5 +4,21 @@
 }
 #addbutton {
     margin-bottom: 40px;
-    margin-top: 20px;
+    margin-top: 40px;
+    background-color:#416a59;
+    color: honeydew;
+    font-size: 2.5vh;
+    margin-left: 37%;
+}
+
+#buttons{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: 3vh;
+    margin-right: 5vh;
+    background-color: #416a59;
+    color:honeydew;
+    font-size: 3vh;
+    padding: 2px;
+    align-content: center;
 }

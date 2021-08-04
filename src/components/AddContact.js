@@ -1,11 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import {useDispatch} from 'react-redux'
-import { TextField ,Button, Container} from '@material-ui/core'
-import { addcontact,addtext } from '../contactredux'
+import { TextField ,Button,Typography} from '@material-ui/core'
+import { addcontact, editcontact,updateheadingtext} from '../contactredux'
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
+import './mainstyle.css'
 
-hellosjjd
 const useStyles = makeStyles((theme)=>({
     modal: {
         display: 'flex',
@@ -25,43 +25,62 @@ function AddContact(Props) {
     const classes = useStyles();
     const dispatch = useDispatch()
     const data = useSelector(state=>state.contactdata)
- 
-    const [user, setUser] = useState({
-        firstname: "",
-        lastname: "",
-        mobilenumber: ""
-    });
+    const currentIndex = useSelector(state=>state.index)
+    const inputref = useRef(null)
+    const text = useSelector(state => state.headingtext)
+    var returnStateObject=()=> {
+      if (currentIndex === -1)
+          return {
+              firstname: '',
+              lastname: '',
+              mobilenumber: '',
+          }
+      else
+          return data[currentIndex]
+  }
+  const [user,setUser] = useState({...returnStateObject})
 
-    const handlechange = e => {
+  
+  useEffect(() => {
+      setUser({ ...returnStateObject() })
+      inputref.current.focus()
+  }, [currentIndex,data.length])
+    
+
+
+    const handlechange = (e) => {
         setUser({...user, [e.target.name]: e.target.value});
     };
 
-    //  const handlechange = e => {
-    //      setUser({...user, [e.target.name]: e.target.value});
-    //     dispatch(addtext(e.target.value))
-    // };
 
-    const handleSubmit = e=>{
-        e.preventDefault()
 
-            dispatch(addcontact([...data, user]))
-          setUser(
-              {firstname: "",
-                lastname: "",
-                mobilenumber: ""
-            })
+    const handleSubmit = (e)=>{
+       e.preventDefault()
+       if(currentIndex===-1){
+         dispatch(updateheadingtext('Add Contact'))
+          dispatch(addcontact([...data, user]))
+            setUser(
+                {firstname: "",
+                  lastname: "",
+                  mobilenumber: ""
+              })
+        Props.handleClose()
+       }
+        else{
+          dispatch(editcontact(user,currentIndex))
           Props.handleClose()
+        }
     }
     return (
         <div>
              <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-                <div>
-                    <TextField  value = {Props.firstname} name="firstname" id="standard-required" label="FirstName"  onChange={handlechange} />
-                    <TextField value = {Props.lastname} name="lastname" id="standard-disabled" label="LastName"  onChange={handlechange}/>
-                    <TextField  value = {Props.mobilenumber} name="mobilenumber" id="standard-disabled" label="Mobile Number" onChange={handlechange}/>
-                </div>
-             <Button style={{margin:"20px,auto,40px,70px"}} variant="outlined" color="primary" onClick={handleSubmit}>Add Contact</Button>
-                    
+                    <Typography variant="h6" style={{color:"#749559",fontSize:"6vh",backgroundColor:"#f5f5f5"}}> {text }   </Typography>
+                    <TextField  style={{marginTop:"2vh",marginBottom:"0vh"}} inputRef={inputref} value = {user.firstname} name="firstname" id="standard-required" label="FirstName"  onChange={handlechange} />
+                    <TextField   value = {user.lastname} name="lastname" id="standard-disabled" label="LastName"  onChange={handlechange}/>
+                    <TextField    value = {user.mobilenumber} name="mobilenumber" id="standard-disabled" label="Mobile Number" onChange={handlechange}/>
+                    <br></br>
+                    <Button id="buttons" variant="outlined" type="submit">Ok</Button>
+                    <Button id="buttons" variant="outlined"  onClick={()=>Props.handleClose()}>Cancel</Button>    
             </form>
         </div>
     )
