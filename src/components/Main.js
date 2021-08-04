@@ -71,7 +71,7 @@ function Main() {
     const handleDelete=(index)=>{
         confirm({ description: 'This action is permanent!' })
         .then(() => {dispatch(deletecontact(index))})
-        .catch(() => { /* ... */ });
+        .catch(() => {});
     }
 
     
@@ -107,7 +107,7 @@ function Main() {
                 
 
   <TableContainer >
-      <Table className={classes.table} aria-label="simple table" stickyHeader aria-label="sticky table">
+      <Table className={classes.table} aria-label="simple table" stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell align="center">Name</TableCell>

@@ -74,7 +74,7 @@ function AddContact(Props) {
     return (
         <div>
              <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-                    <Typography variant="h6" style={{color:"#749559",fontSize:"6vh",backgroundColor:"#f5f5f5"}}> {text }   </Typography>
+                    <Typography variant="h6" style={{color:"#68ac53",fontSize:"6vh",backgroundColor:"#8a757e"}}> {text }   </Typography>
                     <TextField  style={{marginTop:"2vh",marginBottom:"0vh"}} inputRef={inputref} value = {user.firstname} name="firstname" id="standard-required" label="FirstName"  onChange={handlechange} />
                     <TextField   value = {user.lastname} name="lastname" id="standard-disabled" label="LastName"  onChange={handlechange}/>
                     <TextField    value = {user.mobilenumber} name="mobilenumber" id="standard-disabled" label="Mobile Number" onChange={handlechange}/>
